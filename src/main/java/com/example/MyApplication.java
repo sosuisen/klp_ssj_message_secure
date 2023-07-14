@@ -33,9 +33,9 @@ public class MyApplication extends Application {
 		map.put(Csrf.CSRF_PROTECTION, Csrf.CsrfOptions.IMPLICIT);
 
 		/**
-		 * .jspファイルを置く場所の指定。デフォルトは /WEB-INF/views/
+		 * Viewのファイルを置く場所の指定。デフォルトは /WEB-INF/views/
 		 */
-		// map.put(ViewEngine.VIEW_FOLDER, "/WEB-INF/jsp/");
+		// map.put(ViewEngine.VIEW_FOLDER, "/WEB-INF/th/");
 		return map;
 	}
 }

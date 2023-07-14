@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<link th:href="${mvc.basePath + '/../app.css'}" rel="stylesheet">
+	<title>メッセージアプリ：ホーム</title>
+</head>
+
+<body>
+	<p>メッセージアプリへようこそ！</p>
+	<p>
+		<a th:href="${mvc.basePath + '/list'}">ログイン</a>
+	</p>
+</body>
+
+</html>
