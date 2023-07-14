@@ -1,9 +1,6 @@
 package com.example.controller;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-import java.util.Properties;
+import java.util.ResourceBundle;
 
 import com.example.auth.IdentityStoreConfig;
 import com.example.model.user.UserDTO;
@@ -15,6 +12,7 @@ import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.mvc.Controller;
+import jakarta.mvc.MvcContext;
 import jakarta.mvc.binding.BindingResult;
 import jakarta.security.enterprise.identitystore.Pbkdf2PasswordHash;
 import jakarta.servlet.ServletContext;
@@ -38,16 +36,18 @@ public class UserController {
 	private final BindingResult bindingResult;
 	private final UserForm userForm;
 	private final ServletContext servletContext;
+	private final MvcContext mvcContext;
 
 	@Inject
 	public UserController(UsersDAO usersDAO, Pbkdf2PasswordHash passwordHash, BindingResult bindingResult,
-			 UserForm userForm, ServletContext servletContext) {
+			 UserForm userForm, ServletContext servletContext, MvcContext mvcContext) {
 		this.usersDAO = usersDAO;
 		this.passwordHash = passwordHash;
 		passwordHash.initialize(IdentityStoreConfig.HASH_PARAMS);
 		this.bindingResult = bindingResult;
 		this.userForm = userForm;
 		this.servletContext = servletContext;
+		this.mvcContext = mvcContext;
 	}
 	
 	@GET
@@ -141,15 +141,7 @@ public class UserController {
 	}
 
 	private String getValidationMessage(String key) {
-		var properties = new Properties();
-		try (InputStream resourceStream = servletContext
-				.getResourceAsStream("/WEB-INF/classes/ValidationMessages.properties");) {
-			properties.load(resourceStream);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		String message = properties.getProperty(key);
-		var utf8Message = new String(message.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
-		return utf8Message;
+		final var bundle = ResourceBundle.getBundle("ValidationMessages", mvcContext.getLocale());
+		return bundle.getString(key);
 	}
 }
