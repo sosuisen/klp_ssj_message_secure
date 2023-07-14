@@ -37,7 +37,7 @@
 	</div>
 	<div style="color: red">
 		<c:forEach var="err" items="${userForm.error}">
-			${err}<br />
+			${mvc.encoders.html(err)}<br />
 		</c:forEach>
 	</div>
 	<h1>新規ユーザ追加</h1>

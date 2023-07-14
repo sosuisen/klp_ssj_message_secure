@@ -36,6 +36,8 @@
 	<h1>メッセージ一覧</h1>
 	<c:forEach var="mes" items="${messagesModel}">
 		<div>${mes.name}:${mes.message}
+		<%-- HTML内にユーザ由来のデータを置く場合、XSS対策のためHTMLタグを次のようにエンコードします --%>
+		<%--  <div>${mvc.encoders.html(mes.name)}:${mvc.encoders.html(mes.message)} --%>
 	</c:forEach>
 </body>
 </html>
