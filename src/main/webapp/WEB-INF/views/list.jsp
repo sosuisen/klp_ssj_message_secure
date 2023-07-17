@@ -11,7 +11,9 @@
 <body>
 	[<a href="${mvc.basePath}/">ホーム</a>] [<a href="${mvc.basePath}/users">ユーザ管理</a>] [<a href="${mvc.basePath}/logout">ログアウト</a>]
 	<hr>
-	${ req.getRemoteUser() }${ req.isUserInRole("ADMIN") ? "[管理者]" : "" }さん、こんにちは！
+	<div onclick="alert('${req.getRemoteUser()}')">
+		${ req.getRemoteUser() }${ req.isUserInRole("ADMIN") ? "[管理者]" : "" }さん、こんにちは！
+	</div>
 	<form action="${mvc.basePath}/list" method="POST">
 		メッセージ：<input type="text" name="message">
 		<input type="hidden" name="${mvc.csrf.name}" value="${mvc.csrf.token}"/>
@@ -36,7 +38,7 @@
 	<h1>メッセージ一覧</h1>
 	<c:forEach var="mes" items="${messagesModel}">
 		<%--  <div>${mes.name}:${mes.message}</div> --%>
-		<%-- HTML内にユーザ由来のデータを置く場合、XSS対策のためHTMLタグを次のようにエンコードします --%>
+		<%-- HTML内にユーザ由来のデータを置く場合、XSS対策のためHTMLタグをサニタイズします --%>
 		<div>${mvc.encoders.html(mes.name)}:${mvc.encoders.html(mes.message)}</div>
 	</c:forEach>
 </body>
