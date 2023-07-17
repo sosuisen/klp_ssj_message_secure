@@ -12,7 +12,8 @@
 	[<a href="${mvc.basePath}/">ホーム</a>] [<a href="${mvc.basePath}/users">ユーザ管理</a>] [<a href="${mvc.basePath}/logout">ログアウト</a>]
 	<hr>
 	<%-- XSS脆弱性の説明のためだけに、onclick属性を追加しています。 --%>
-	<div onclick="alert('${req.getRemoteUser()}')">
+	<div style="cursor:pointer" onclick="alert('${mvc.encoders.js(req.getRemoteUser())}')">
+	<%-- <div style="cursor:pointer" onclick="alert('${req.getRemoteUser()}')"> --%>
 		${ req.getRemoteUser() }${ req.isUserInRole("ADMIN") ? "[管理者]" : "" }さん、こんにちは！
 	</div>
 	<form action="${mvc.basePath}/list" method="POST">
