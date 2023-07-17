@@ -30,10 +30,13 @@ public class UserDTO {
 	public static final int MAX_PASSWORD_LENGTH = 16;
 
 	@MvcBinding
+
 	// @NotBlank(message = "名前を入力してください。", groups = CreateChecks.class)
+	@Pattern(regexp = "a-zA-Z", message = "{user.name.Pattern}", groups = CreateChecks.class)
 	@NotBlank(message = "{user.name.NotBlank}", groups = CreateChecks.class)
 	@Size(min = MIN_NAME_LENGTH, max = MAX_NAME_LENGTH, message = "{user.name.Size}", groups = CreateChecks.class)
-	@UniqueName(message = "{user.name.UniqueName}", groups = CreateChecks.class)
+	@UniqueName(message = "{user.name.UniqueName}", groups = CreateChecks.class) 
+
 	@FormParam("name")
 	private String name;
 

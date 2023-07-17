@@ -43,8 +43,8 @@
 	<h1>新規ユーザ追加</h1>
 	<form class="row_create" action="${mvc.basePath}/users" method="POST">
 		<span>ユーザ名</span> <span>ロール</span> <span>パスワード</span> <span></span>
-		<input type="text" name="name" value="${userForm.prevUser.name}">
-		<input type="text" name="role"  value="${userForm.prevUser.role}">
+		<input type="text" name="name" value="${mvc.encoders.js(userForm.prevUser.name)}">
+		<input type="text" name="role"  value="${mvc.encoders.js(userForm.prevUser.role)}">
 		<input type="password" name="password" value="">
 		<input type="hidden" name="${mvc.csrf.name}" value="${mvc.csrf.token}"/>
 		<button>追加</button>
@@ -59,8 +59,8 @@
 
 	<c:forEach var="user" items="${usersModel}">
 		<form class="row" method="POST">
-			<input type="hidden" name="name" value="${user.name}"> <span>${user.name}</span>
-			<input type="text" name="role" value="${user.role}">
+			<input type="hidden" name="name" value="${mvc.encoders.js(user.name)}"> <span>${mvc.encoders.html(user.name)}</span>
+			<input type="text" name="role" value="${mvc.encoders.js(user.role)}">
 			<input type="password" name="password" value="">
 			<input type="hidden" name="${mvc.csrf.name}" value="${mvc.csrf.token}"/>
 			<button formaction="${mvc.basePath}/user_update">更新</button>
