@@ -59,7 +59,7 @@
 
 	<c:forEach var="user" items="${usersModel}">
 		<form class="row" method="POST">
-			<input type="hidden" name="name" value="${mvc.encoders.js(user.name)}"> <span>${mvc.encoders.html(user.name)}</span>
+			<input type="hidden" name="name" value="${user.name}"> <span>${mvc.encoders.html(user.name)}</span>
 			<input type="text" name="role" value="${mvc.encoders.js(user.role)}">
 			<input type="password" name="password" value="">
 			<input type="hidden" name="${mvc.csrf.name}" value="${mvc.csrf.token}"/>
