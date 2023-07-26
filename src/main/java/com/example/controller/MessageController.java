@@ -10,6 +10,7 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.mvc.Controller;
 import jakarta.mvc.Models;
+import jakarta.mvc.MvcContext;
 import jakarta.mvc.binding.BindingResult;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -44,15 +45,17 @@ public class MessageController {
 	private final HttpServletRequest req;
 	private final BindingResult bindingResult;
 	private final MessageForm messageForm;
+	private final MvcContext mvcContext;
 	
 	@Inject
 	public MessageController(Models models, MessagesDAO messagesDAO,
-			HttpServletRequest req, BindingResult bindingResult, MessageForm messageForm) {
+			HttpServletRequest req, BindingResult bindingResult, MessageForm messageForm, MvcContext mvcContext) {
 		this.models = models;
 		this.messagesDAO = messagesDAO;
 		this.req = req;
 		this.bindingResult = bindingResult;
 		this.messageForm = messageForm;
+		this.mvcContext = mvcContext;
 	}
 
 	/**
@@ -114,6 +117,8 @@ public class MessageController {
 			return "redirect:list";
 		}
 
+		mes.setMessage(mvcContext.getEncoders().html(mes.getMessage()));
+		
 		mes.setName(req.getRemoteUser());
 		messagesDAO.create(mes);
 		return "redirect:list";
