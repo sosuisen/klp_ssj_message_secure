@@ -31,5 +31,5 @@ dependencies {
 	implementation 'org.hibernate.validator:hibernate-validator:8.0.1.Final'
 			
 	// もしThymeleafを使いたいなら、下記をコメントアウトして、Gradleタスク＞build>classes実行
-	// implementation 'org.eclipse.krazo.ext:krazo-thymeleaf:3.0.1'	
+	// implementation 'org.eclipse.krazo.ext:krazo-thymeleaf:3.0.0'	
 }
