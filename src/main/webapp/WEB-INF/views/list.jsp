@@ -13,7 +13,7 @@
 	<hr>
 	<%-- XSS脆弱性の説明のためだけに、onclick属性を追加しています。 --%>
 	<div style="cursor:pointer" onclick="alert('${mvc.encoders.js(req.getRemoteUser())}')">
-	<%-- <div style="cursor:pointer" onclick="alert('${req.getRemoteUser()}')"> --%>	
+	<%-- <div style="cursor:pointer" onclick="alert('${req.getRemoteUser()}')"> --%> 
 			${ mvc.encoders.html(req.getRemoteUser()) }${ req.isUserInRole("ADMIN") ? "[管理者]" : "" }さん、こんにちは！
 	</div>
 	<form action="${mvc.basePath}/list" method="POST">
@@ -38,7 +38,7 @@
 	<hr>
 	<h1>メッセージ一覧</h1>
 	<c:forEach var="mes" items="${messages}">
-		<%--  <div>${mes.name}:${mes.message}</div> --%>
+		<%-- <div>${mes.name}:${mes.message}</div> --%>
 		<%-- HTML内にユーザ由来のデータを置く場合、XSS対策のためHTMLタグをサニタイズします --%>
 		<div>${mvc.encoders.html(mes.name)}:${mvc.encoders.html(mes.message)}</div>
 	</c:forEach>
