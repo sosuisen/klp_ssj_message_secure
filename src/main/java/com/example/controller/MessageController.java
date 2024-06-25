@@ -14,6 +14,7 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.mvc.Controller;
 import jakarta.mvc.Models;
+import jakarta.mvc.MvcContext;
 import jakarta.mvc.binding.BindingResult;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -53,6 +54,7 @@ public class MessageController {
 	private final HttpServletRequest req;
 	private final BindingResult bindingResult;
 	private final MessageForm messageForm;
+	private final MvcContext mvcContext;
 	
 	@PostConstruct
 	public void afterInit() {
@@ -122,6 +124,8 @@ public class MessageController {
 			messageForm.getError().addAll(bindingResult.getAllMessages());
 			return "redirect:list";
 		}
+		mes.setMessage(mvcContext.getEncoders().html(getMessage()));
+		
 		mes.setName(req.getRemoteUser());
 		messagesDAO.create(mes);
 		return "redirect:list";
