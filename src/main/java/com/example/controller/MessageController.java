@@ -127,7 +127,7 @@ public class MessageController {
 		return "redirect:list";
 	}
 
-	@GET
+	@POST
 	@Path("clear")
 	@RolesAllowed("ADMIN")
 	public String clearMessage() throws SQLException {
