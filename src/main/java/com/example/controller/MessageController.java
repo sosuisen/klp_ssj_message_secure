@@ -20,7 +20,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.BeanParam;
-import jakarta.ws.rs.FormParam;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -139,9 +138,10 @@ public class MessageController {
 		return "redirect:list";
 	}
 
-	@POST
+	@GET
 	@Path("search")
-	public String postSearch(@FormParam("keyword") String keyword) throws SQLException {
+	public String getSearch(@QueryParam("keyword") String keyword) throws SQLException {
+		models.put("req", req);	
 		models.put("messages", messagesDAO.search(keyword));
 		return "list.jsp";
 	}

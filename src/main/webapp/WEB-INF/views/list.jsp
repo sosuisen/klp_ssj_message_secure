@@ -21,7 +21,7 @@
 		<input type="hidden" name="${mvc.csrf.name}" value="${mvc.csrf.token}"/>		
 		<button>送信</button>
 	</form>
-	<form action="${mvc.basePath}/search" method="POST">
+	<form action="${mvc.basePath}/search" method="GET">
 		検索語：<input type="text" name="keyword">
 		<input type="hidden" name="${mvc.csrf.name}" value="${mvc.csrf.token}"/>		
 		<button>検索</button>
