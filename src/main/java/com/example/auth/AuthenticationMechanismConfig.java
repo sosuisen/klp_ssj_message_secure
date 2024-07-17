@@ -16,12 +16,11 @@ import jakarta.security.enterprise.authentication.mechanism.http.LoginToContinue
  * redirectの場合、URLは/msg/login に変わります。通常はtrueで良いです。
  */
 @FormAuthenticationMechanismDefinition(
-    loginToContinue = @LoginToContinue(
-        loginPage="/msg/login",
-        errorPage="/msg/login?error=invalid_user",
-        useForwardToLogin = true
-    )
-)
+		loginToContinue = @LoginToContinue(
+				loginPage = "/msg/login",
+				errorPage = "/msg/login?error=invalid_user",
+				useForwardToLogin = true)
+		)
 @ApplicationScoped
 public class AuthenticationMechanismConfig {
 }
