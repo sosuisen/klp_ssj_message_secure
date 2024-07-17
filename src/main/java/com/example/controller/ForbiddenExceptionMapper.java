@@ -32,6 +32,15 @@ public class ForbiddenExceptionMapper implements ExceptionMapper<ForbiddenExcept
 			log.log(Level.WARNING, "Failed to logout", e);
 		}
 		// ExceptionMapper内でのリダイレクト実行は Response.seeOther()
-		return Response.seeOther(URI.create(req.getRequestURL().toString() + "?error=forbidden")).build();
+		// GETはリクエストページへリダイレクトすることで、
+		// 自動的にloginページが開かれて、認証後、フォワードされる。
+		// GET以外のリクエストは強制的にメソッドがGETに変わってしまってエラーになるので、
+		// GET以外のときはlistページへリダイレクトする。
+		if(req.getMethod().equals("GET")){
+			return Response.seeOther(URI.create(req.getRequestURL().toString() + "?error=forbidden")).build();
+		}
+		else {
+			return Response.seeOther(URI.create(req.getContextPath() + "/msg/list?error=forbidden")).build();			
+		}
 	}
 }
